@@ -10,7 +10,8 @@
 #
 
 class Book
-	attr_accessor :status, :author, :title, :description
+	attr_accessor :status
+	attr_reader :author, :title, :description
 
 	def initialize(author="Drew", title="MakerSquare", description="Awesome")
 		@author = author
