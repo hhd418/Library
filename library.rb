@@ -58,19 +58,19 @@ class Library
   # The method checks to make sure that the user does not have more that 2 books checked out.
   # It then changes the status of any book that is checked out to "Checked Out"
   # It also prevents users from checking out a book that is checked out.
-  # The method assigns a due date as well 
+  # The method assigns a due date as well and assigns owernship of the book to the user.
   # 
   #
   # Example
   #
-  #    user1.check_out(book1)
+  #    user1.check_out(book1, user1)
   #    book1.status = "Check Out"
   #    book1.due_date is now equal to one week from the checkout
 
   def check_out(book, user)
-   # if @user_standing == "Bad"
-    #  puts "You are not aloud to check out books because you have an overdue book."
-    # else
+    if user.user_standing == "Bad"
+      puts "You are not aloud to check out books because you have an overdue book."
+    else
       if user.books_out > 2 then
         puts "You have too many books checked out!"
         puts "Please return a book before checking out another one."
@@ -84,7 +84,25 @@ class Library
         book.due_date = Time.now + (7*24*60*60)
         puts "Your book is due #{book.due_date}!"
       end
-    #end
+    end
+  end
+
+  # Created a check_in method to allow user to return books.
+  # The method will change the book status to Available and decrease the number of books the user has check out by 1.
+  # The owner of the book will also be changed to library.
+  #
+  # Example
+  #
+  #    user1.check_in(book1, user1)
+  #    Will thank the user for returning the book.
+  #    Changes book1.status to available
+  #    Subtracts 1 from user1.books_out
+
+  def check_in(book, user)
+    puts "Thank you #{user.name} for returning #{book.title}!"
+    book.status = "Available"
+    user.books_out = user.books_out - 1
+    book.owner = @lib
   end
 
 
