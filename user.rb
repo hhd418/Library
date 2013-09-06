@@ -23,11 +23,13 @@ class User < Book
   # The method checks to make sure that the user does not have more that 2 books checked out.
   # It then changes the status of any book that is checked out to "Checked Out"
   # It also prevents users from checking out a book that is checked out.
-  # 
+  # The method assigns a due date as well 
+  #
   # Example
   #
   #    user1.check_out(book1)
   #    book1.status = "Check Out"
+  #    book1.due_date is now equal to one week from the checkout
 
   def check_out(book)
     if @books_out > 2 then
@@ -38,7 +40,9 @@ class User < Book
     else
       puts "You checked out #{book.title}. Please bring it back in a week."
       @books_out = @books_out + 1
-      book.status = "Checked Out" 
+      book.status = "Checked Out"
+      book.due_date = Time.now + (7*24*60*60)
+      puts "Your book is due #{book.due_date}!"
     end
   end
 
@@ -57,6 +61,7 @@ class User < Book
     book.status = "Available"
     @books_out = @books_out - 1
   end
+
 
 
 end
