@@ -1,7 +1,6 @@
 # Created a Library class.
 # Each library is initialized and given a default name of MakerSquare.
 # Each library is also assigned a books array to keep track of the books that is has.
-# Each library is also assigned a users array to keep track of its memebrs.
 
 class Library  
 
@@ -10,7 +9,6 @@ class Library
   def initialize(lib="MakerSquare")
   	@lib = lib
     @books = []
-    @users = []
   end
 
   # The add_book method allows users to add books to the library.
@@ -27,18 +25,6 @@ class Library
     book.owner = @lib
   end
 
-  # The add_book method allows users to add books to the library.
-  # Books are added to the books array
-  #
-  # Example
-  #
-  #    lib1.add_user(user1)
-  #    lib2.add_user(user2)
-  #    @users = [user1, user2]
-
-  def add_user(user)
-    @users << user
-  end
 
   # The titles method with print all of the title the book currently has.
   #
@@ -59,7 +45,7 @@ class Library
   # It then changes the status of any book that is checked out to "Checked Out"
   # It also prevents users from checking out a book that is checked out.
   # The method assigns a due date as well and assigns owernship of the book to the user.
-  # 
+  # The method also check to make sure that the book has been added to the library.
   #
   # Example
   #
@@ -68,21 +54,25 @@ class Library
   #    book1.due_date is now equal to one week from the checkout
 
   def check_out(book, user)
-    if user.user_standing == "Bad"
-      puts "You are not aloud to check out books because you have an overdue book."
+    if book.owner = ""
+      puts "We don't have this book. Please add it to the library, before checking it out."
     else
-      if user.books_out > 2 then
-        puts "You have too many books checked out!"
-        puts "Please return a book before checking out another one."
-      elsif book.status == "Checked Out"
-        puts "Sorry, this book is already checked out!"
+      if user.user_standing == "Bad"
+        puts "You are not aloud to check out books because you have an overdue book."
       else
-        puts "You checked out #{book.title}. Please bring it back in a week."
-        user.books_out = user.books_out + 1
-        book.status = "Checked Out"
-        book.owner = user.name
-        book.due_date = Time.now + (7*24*60*60)
-        puts "Your book is due #{book.due_date}!"
+        if user.books_out > 2 then
+          puts "You have too many books checked out!"
+          puts "Please return a book before checking out another one."
+        elsif book.status == "Checked Out"
+          puts "Sorry, this book is already checked out!"
+        else
+          puts "You checked out #{book.title}. Please bring it back in a week."
+          user.books_out = user.books_out + 1
+          book.status = "Checked Out"
+          book.owner = user.name
+          book.due_date = Time.now + (7*24*60*60)
+          puts "Your book is due #{book.due_date}!"
+        end
       end
     end
   end
@@ -106,21 +96,31 @@ class Library
   end
 
 
-  # The books_overdue? method will iterate through the books array to find books tht Overdue.
+  # Created a  books_overdue? method to check if a book is Overdue.
+  # The books_overdue? method will iterate through the books array to find books that are Overdue.
   # Books that are overdue are then outputed
   #
   # Example
   #
   #   lib1.books_overdue?
-  #   will print all books that have book
+  #   will print all books that are overdue
 
   def books_overdue?
     @books.each do |book|
       if book.status == "Overdue"
         puts "#{book.title} is Overdue!"
+      elsif book.status == "Checked Out"
+        if Time.now > book.due_date
+          book.status = "Overdue"
+          puts "#{book.title} is Overdue!"
+          user.user_standing = "Bad"
+        end
       end
     end
   end
+
+
+
 
   # The books_out method will interate through books that are Checked Out.
   # This will return the title, the user, and the due date for books that are out.
