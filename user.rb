@@ -8,14 +8,14 @@
   #   Will give user1 the name of Mike.
   #   If no name is entered the user will have a default name of Drew!
   #
-  # Users are also greeted with open arms to the MakerSquare library!
+  # Users are also encouraged to join their favorite library"
 
-class User < Book 
+class User 
   attr_reader :name, :books_out
 
   def initialize(name="Drew")
   	@name = name
-    puts "Welcome #{@name} to the MakerSquare library!"
+    puts "Welcome #{@name}. Please make sure to joing your favorite library."
     @books_out = 0
   end
 
@@ -62,6 +62,25 @@ class User < Book
     @books_out = @books_out - 1
   end
 
+  # Created an overdue? method to check if a book is Overdue.
+  # It only checks the status of Checked Out books.
+  #
+  # Example
+  #
+  #    user1.overdue?(book1)
+  #    if Time.now is past the due date then the book will be Overdue.
+  
+
+  def overdue?(book)
+    if book.status = "Checked Out"
+      if Time.now > book.due_date
+        book.status = "Overdue"
+        puts "#{book.title} is Overdue!"
+      end
+    elsif book.status = "Overdue"
+      puts "#{book.title} is Overdue!"
+    end
+  end
 
 
 end
