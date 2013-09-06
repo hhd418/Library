@@ -1,8 +1,11 @@
 # Created a Book class 
 #
 # Books a created and are assigned an author, title, and description.
-# Books are also initially given a status of Available.
-# 
+# Books are initially given a status of Available.
+# Books are given a blank due date
+# Books are assigned a blank owner
+#   - this will allow for the owner to change when books are added to the library and when they are checked out.
+#
 # Example
 #
 #   book1 = Book.new("Dickens", "Great Expectations", "Thriller")
@@ -10,7 +13,7 @@
 #
 
 class Book
-	attr_accessor :status, :due_date
+	attr_accessor :status, :due_date, :owner
 	attr_reader :author, :title, :description
 
 	def initialize(author="Drew", title="MakerSquare", description="Awesome")
@@ -18,7 +21,9 @@ class Book
 		@title = title
 		@description = description
 		@status = "Available"
-		@due_date = 0
+		@due_date = ""
+		@owner = ""
+		puts "You have created a new book. Please add it to your library."
 	end
 
   end
