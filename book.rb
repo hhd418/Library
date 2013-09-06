@@ -22,7 +22,7 @@ class Book
 		@description = description
 		@status = "Available"
 		@due_date = ""
-		@owner = ""
+		@owner = " "
 		puts "You have created a new book. Please add it to your library."
 	end
 
