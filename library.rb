@@ -26,16 +26,18 @@ class Library
   end
 
 
-  # The titles method with print all of the title the book currently has.
+  # The books_available method with print the titles of all the books available for checkout.
   #
   # Example
   #
-  #   lib1.titles
+  #   lib1.books_available
   #   It will iterate through the books array and print out the book titles.
 
-  def titles
+  def books_available
     @books.each do |book|
-      puts "We have #{book.title}."
+      if book.status == "Available"
+        puts "We have #{book.title}."
+      end
     end
   end
 
@@ -54,13 +56,13 @@ class Library
   #    book1.due_date is now equal to one week from the checkout
 
   def check_out(book, user)
-    if book.owner = ""
+    if book.owner == " "
       puts "We don't have this book. Please add it to the library, before checking it out."
     else
       if user.user_standing == "Bad"
         puts "You are not aloud to check out books because you have an overdue book."
       else
-        if user.books_out > 2 then
+        if user.books_out >= 2 then
           puts "You have too many books checked out!"
           puts "Please return a book before checking out another one."
         elsif book.status == "Checked Out"
@@ -80,6 +82,7 @@ class Library
   # Created a check_in method to allow user to return books.
   # The method will change the book status to Available and decrease the number of books the user has check out by 1.
   # The owner of the book will also be changed to library.
+  # The method also checks to see if the user is returning an overdue book and will change his standing to Good if he has returned all books.
   #
   # Example
   #
@@ -93,6 +96,14 @@ class Library
     book.status = "Available"
     user.books_out = user.books_out - 1
     book.owner = @lib
+    if user.user_standing == "Bad"
+      if user.books_out == 0
+        puts "You are back in our good graces. You can now check out books again"
+        user.user_standing = "Good"
+      else
+        puts "You need to return all books before you can check out books again."
+      end
+    end
   end
 
 
