@@ -24,6 +24,7 @@ class Library
 
   def add_book(book)
     @books << book
+    book.owner = @lib
   end
 
   # The add_book method allows users to add books to the library.
@@ -45,7 +46,7 @@ class Library
   #
   #   lib1.titles
   #   It will iterate through the books array and print out the book titles.
-  
+
   def titles
     @books.each do |book|
       puts "We have #{book.title}."
@@ -62,8 +63,25 @@ class Library
 
   def books_overdue?
     @books.each do |book|
-      if book.status = "Overdue"
+      if book.status == "Overdue"
         puts "#{book.title} is Overdue!"
+      end
+    end
+  end
+
+  # The books_out method will interate through books that are Checked Out.
+  # This will return the title, the user, and the due date for books that are out.
+  #
+  # Example
+  #
+  #   lib1.books_out 
+  #   Will print all books that are checked out.
+  
+  def books_out
+    @books.each do |book|
+      if book.status == "Checked Out"
+          puts "#{book.title} was check out by #{book.owner} and is due #{book.due_date}."
+        end
       end
     end
   end
