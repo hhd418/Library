@@ -10,7 +10,7 @@
 #
 
 class Book
-	attr_accessor :status
+	attr_accessor :status, :due_date
 	attr_reader :author, :title, :description
 
 	def initialize(author="Drew", title="MakerSquare", description="Awesome")
@@ -18,6 +18,7 @@ class Book
 		@title = title
 		@description = description
 		@status = "Available"
+		@due_date = 0
 	end
 
   end
