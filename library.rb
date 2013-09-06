@@ -76,12 +76,11 @@ class Library
   #
   #   lib1.books_out 
   #   Will print all books that are checked out.
-  
+
   def books_out
     @books.each do |book|
       if book.status == "Checked Out"
           puts "#{book.title} was check out by #{book.owner} and is due #{book.due_date}."
-        end
       end
     end
   end
